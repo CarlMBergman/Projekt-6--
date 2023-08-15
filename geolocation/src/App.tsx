@@ -1,25 +1,12 @@
 import './App.css'
 import { useState } from 'react'
+import { getPosition, reverseGeocode } from './Geolocation'
 
 function App() {
   const [message, setMessage] = useState<string>('')
-
-  function getPosition() {
-
-    if('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-        // let p = position
-        console.log('position is: ', position);
-        let lat: number = position.coords.latitude
-        let long: number = position.coords.longitude
-        
-        setMessage(`Din position är: lat:${lat} long:${long}`)
-      }, error => {
-        console.log('vi blev nekade', error);
-        setMessage('Vi behöver åtkomst till din platsinformation')
-      })
-    }
-  }
+  const [adress, setAdress] = useState<string>('')
+  const lat: number = 9.3297408
+  const long: number = 18.0224
 
   return (
     <div className='vertical-layout'>
@@ -27,8 +14,11 @@ function App() {
         <h1>Geolocation</h1>
       </header>
       <main>
-        <button onClick={ getPosition }>Hitta position</button>
+        
+      <button onClick={ () => getPosition(setMessage) }>Hitta position</button>
         <p>{ message }</p>
+        <button onClick={ () => reverseGeocode(lat, long, setAdress) }>Hämta närmsta adress!</button>
+        <p>{ adress }</p>
       </main>
     </div>
   )
