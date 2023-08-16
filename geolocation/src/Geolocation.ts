@@ -21,7 +21,7 @@ type ReactSetState<T> = React.Dispatch<React.SetStateAction<T>>
   const numOfResponses: number = 5
 
   async function reverseGeocode(lat: number, long: number, setAdress: ReactSetState<string>) {
-    const url = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=${numOfResponses}&appid=${apiKey}`
+    const url = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=${numOfResponses}&appid=${apiKey}`
     const response = await fetch(url)
     const data: Place[] = await response.json()
     console.log(data);
